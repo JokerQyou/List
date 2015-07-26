@@ -43,7 +43,13 @@ app.on('ready', function(){
     appIcon.setContextMenu(Menu.buildFromTemplate([
         {
             label: '清单',
-            click: openMainWindow
+            click: function(){
+                if(mainWindow.isVisible()){
+                    mainWindow.hide();
+                }else{
+                    openMainWindow();
+                }
+            }
         },
         {
             label: '退出',
@@ -54,4 +60,8 @@ app.on('ready', function(){
     ]));
     openMainWindow();
     app.dock.hide();
+}).on('before-quit', function(){
+    if(mainWindow){
+        mainWindow.close();
+    }
 });
