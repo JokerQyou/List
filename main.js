@@ -45,4 +45,5 @@ app.on('ready', function(){
         }
     });
     openMainWindow();
+    app.dock.hide();
 });
