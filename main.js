@@ -33,17 +33,25 @@ var openMainWindow = function(){
             mainWindow.hide();
         }).center();
     }
+    if(!mainWindow.isVisible()){
+        mainWindow.show();
+    }
 };
 
 app.on('ready', function(){
     appIcon = new Tray(path.join(__dirname, 'icon.png'));
-    appIcon.on('clicked', function(){
-        if(mainWindow){
-            mainWindow.show();
-        }else{
-            openMainWindow();
+    appIcon.setContextMenu(Menu.buildFromTemplate([
+        {
+            label: '清单',
+            click: openMainWindow
+        },
+        {
+            label: '退出',
+            click: function(){
+                app.quit();
+            }
         }
-    });
+    ]));
     openMainWindow();
     app.dock.hide();
 });
